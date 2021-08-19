@@ -1,0 +1,23 @@
+name: hugo-latest-cd
+
+on:
+  push:
+    branches:
+      - page-main
+
+env:
+  TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #  HUGO_ARGS: '--minify'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛎 Check out master
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+      - name: 🚀 Build and deploy
+        uses: victoriadrake/hugo-latest-cd@master
