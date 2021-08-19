@@ -1,23 +1,20 @@
-name: hugo-latest-cd
+name: Publish Site
 
 on:
   push:
     branches:
-      - page-main
-
-env:
-  TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #  HUGO_ARGS: '--minify'
+      - master
 
 jobs:
-  build:
-
+  build-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🛎 Check out master
+      - name: Checkout Repo
         uses: actions/checkout@master
         with:
-          fetch-depth: 1
-      - name: 🚀 Build and deploy
-        uses: victoriadrake/hugo-latest-cd@master
+          submodules: true
+      - name: Publish Site
+        uses: chabad360/hugo-gh-pages@master
+        with:
+          githubToken: ${{ secrets.PERSONAL_TOKEN }}
