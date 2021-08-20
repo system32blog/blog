@@ -5,6 +5,8 @@ on:
     branches:
       - master  # Set a branch to deploy
   pull_request:
+    branches:
+      - master  # Set a branch to deploy
 
 jobs:
   deploy:
@@ -31,3 +33,4 @@ jobs:
           deploy_key: ${{ secrets.DEPLOYKEY_PROD }}
           external_repository: system32blog/blog-page-prod
           publish_branch: main
+          cname: system32.blog
