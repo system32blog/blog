@@ -28,6 +28,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/dev'
         with:
-          deploy_key: ${{ secrets.DEPLOYKEY_PREVIEW }}
+          deploy_key: ${{ secrets.DEPLOYKEY_DEV }}
           external_repository: system32blog/blog-page-dev
           publish_branch: main
