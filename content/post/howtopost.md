@@ -15,7 +15,7 @@ thumbnail = "images/building.png"
 +++
 This article offers a quick guide on how to collaborate on the blog and submit / update posts.
 <!--more-->
-
+disSisbullshit
 # Introduction
 The system32.blog is powered by a static site generator called Hugo and the [Clarity Theme](https://github.com/chipzoller/hugo-clarity).
 All content is written in Markdown and hosted on Github which allows anyone to submit posts or collaborate on existing ones.
