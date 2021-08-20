@@ -1,9 +1,9 @@
-name: github pages
+name: github pages - dev
 
 on:
   push:
     branches:
-      - master  # Set a branch to deploy
+      - dev  # Set a branch to deploy
   pull_request:
 
 jobs:
@@ -26,8 +26,8 @@ jobs:
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/dev'
         with:
-          deploy_key: ${{ secrets.DEPLOYKEY }}
-          external_repository: system32blog/blog-page-prod
+          deploy_key: ${{ secrets.DEPLOYKEY_PREVIEW }}
+          external_repository: system32blog/blog-page-dev
           publish_branch: main
