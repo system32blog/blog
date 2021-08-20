@@ -24,12 +24,14 @@ All content is written in Markdown and hosted on Github which allows anyone to s
 To contibute to the block, please fork the repository [system32blog/blog](https://github.com/system32blog/blog) and update or add a post under `/content/post`.
 If your change is ready in your opinion, please raise a pull request to the `preview` branch on [system32blog/blog](https://github.com/system32blog/blog).
 
+`Scroll down further to see a video which describes the process.`
+
 # Preview posts
 After your pull request was accepted, you can preview your post on [preview.system32.blog](https://preview.system32.blog).
 We'll review the formatting there and move it into the `master` branch.
 
 # Posting
-To submit a new post, please create a new file under [`/content/post/`](https://github.com/system32blog/blog/tree/preview/content/post) with a meaningful name like `grouppolicy.md`.
+To submit a new post, please create a new file under [`/content/post/`](https://github.com/system32blog/blog/tree/preview/content/post) with a meaningful name like `20210821_grouppolicy.md`, please add the date in the format `YYYYMMDD` like on the example.
 
 The post needs a set of metadata information, please follow this guidance.
 ## Syntax
@@ -59,7 +61,11 @@ Feel free to check out the formatting on any other post under [`/content/post/`]
 
 ## Referencing media
 If you want to reference pictures or other content in your posts, please submit them under ``"/static/post/<your post name without extension>"``.
-You can then reference them using
+You can then reference them using:
 ```markdown
-![describing text][logo_red.png]
+![describing text](logo_red.png)
 ```
+
+## How to use Visual Studio Code for Git in a Webbrowser
+This animation shows how you can check in posts without any Git Client or Markdown editor on your computer.
+![example animation](howtopost.gif)
