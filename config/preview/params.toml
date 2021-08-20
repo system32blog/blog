@@ -1,16 +1,4 @@
-# twitter = "@janedoe"
 largeTwitterCard = false # set to true if you want to show a large twitter card image. The default is a small twitter card image
-# introDescription = "Technologist, perpetual student, teacher, continual incremental improvement."
-# introURL = "about/" # set the url for the 'read more' button below the introDescription, or set to false to not show the button
-# description = "" # set your site's description here. will be use for home page content meta tags (seo). Alternatively set this description in your homepage content file i.e content/_index.md. Whatever is set in the latter will take precedence
-
-# showShare = false # Uncomment to not show share buttons on each post. Also available in each post's front matter.
-
-# Google analytics Id
-# ga_analytics = "XXXXXXXXXX"
-
-# Baidu analytics Id
-# baidu_analytics = "XXXXXXXX"
 
 # limit the number of taxonomies links shown on the sidebar of each page by default.
 numberOfTagsShown = 14 # Applies for all other default & custom taxonomies. e.g categories, brands see https://gohugo.io/content-management/taxonomies#what-is-a-taxonomy
@@ -37,35 +25,28 @@ logo = "logos/logo-preview.png"
 
 # Label Non inline images on an article body
 figurePositionShow = false # toggle on or off globally
+
 # you can toggle this behaviour on or off on per page using the same variable inside your articles frontmatter
 figurePositionLabel = "Figure" # the text before image number e.g Figure 1.0
 
 # Set the collapsed mobile navigation to either appear from the left or the right
 mobileNavigation = "left" # if you prefer right change to 'right'
 
-# some site owners want to decide how they would like their sites to be introduced users. These settings give you as a site owner to decide how the user will view your site for the first time.
-
-# please note that you cannot enforce both modes at the same time. i.e by enforcing one mode, you priotise it over the other (by setting it to true). enforceDarkMode will be commented out
-
-# please also not that mode toggle UI will remain in place. That way, if a user prefers darkmode, they can have their way.
-
+# Light Mode
 enforceLightMode = false
 enforceDarkMode = false
 
 # customize footer icon. see issue https://github.com/chipzoller/hugo-clarity/issues/77
-# footerLogo = "icons/copy.svg"
+footerLogo = "icons/footer.png"
 
 # Text for the languages menu.
 languageMenuName = "🌐"
-
-# Title separator, default to |.
-# titleSeparator = "|"
 
 # Enable or disable comments globally. Default to true.
 comments = true
 
 # Maximum number of recent posts.
-# numberOfRecentPosts = 8
+numberOfRecentPosts = 8
 
 # Maximum number of featured posts.
 numberOfFeaturedPosts = 8
@@ -76,15 +57,10 @@ numberOfFeaturedPosts = 8
 
 # The year when ths website was created, this value is used in the copyright
 # notice of the footer.
-# since = 2016
+since = 2021
 
 # tell hugo where you store your icons e.g favicons. This is useful if you're using an apache server and there are conflicts >> see issue https://github.com/chipzoller/hugo-clarity/issues/74. If this is applicable to you, be sure to copy the contents of https://github.com/chipzoller/hugo-clarity/tree/master/static/icons to your preferred icons directory 
 iconsDir = "icons/" # without a leading forward slash
-
-# website author
-#[author]
-# name = "Jane Doe"
-# photo = "images/jane-doe.png" #include this if you would like to show the author photo on the sidebar
 
 [plausible_analytics]
 enable = false # to enable plausible analytics set to true.

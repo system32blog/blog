@@ -4,9 +4,14 @@
   weight = -110
 
 [[main]]
-  name = "About"
-  url = "about/"
+  name = "Contribute"
+  url = "post/howtopost/"
   weight = -107
+
+#[[main]]
+#  name = "About"
+#  url = "about/"
+#  weight = -107
 
 # social menu links
 [[social]]
