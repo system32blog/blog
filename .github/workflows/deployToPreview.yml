@@ -5,6 +5,8 @@ on:
     branches:
       - preview  # Set a branch to deploy
   pull_request:
+    branches:
+      - preview  # Set a branch to deploy
 
 jobs:
   deploy:
@@ -31,3 +33,4 @@ jobs:
           deploy_key: ${{ secrets.DEPLOYKEY_PREVIEW }}
           external_repository: system32blog/blog-page-preview
           publish_branch: main
+          cname: preview.system32.blog
