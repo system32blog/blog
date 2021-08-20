@@ -1,0 +1,21 @@
+# set `baseurl` to your root domain
+# if you set it to "/" share icons won't work properly on production
+baseurl = "https://dev.system32.blog/"  # Include trailing slash
+# title = "Clarity"  # Edit directly from config/_default/languages.toml # alternatively, uncomment this and remove `title` entry from the aforemention file.
+copyright = "Copyright © 2021, Robin Beismann and the Authors; all rights reserved."
+# canonifyurls = true
+paginate = 10
+theme = "hugo-clarity"
+disqusShortname = "system32-blog-dev"
+
+DefaultContentLanguage = "en"
+# [languages]
+# config/_default/languages.toml
+
+# [menus]
+# config/_default/menus/menu.xx.toml
+
+[taxonomies]
+categories = "categories"
+tag = "tags"
+series = "series"
