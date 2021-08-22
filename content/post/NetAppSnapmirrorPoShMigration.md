@@ -13,7 +13,7 @@ categories = [
 ]
 series = [""]
 aliases = ["test"]
-thumbnail = "post/20210822_NetAppSnapmirrorPoShMigration/NetAppLogo.png"
+thumbnail = "post/NetAppSnapmirrorPoShMigration/NetAppLogo.png"
 +++
 This article shows how to use PowerShell and the NetApp PowerShell Module to migrate all NetApp SnapVault/SnapMirror relationships to a new system.
 The script also builds the SVM Relationships and does the cutovers of the relationships on the source ONTAP Systems. 
