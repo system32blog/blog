@@ -31,8 +31,7 @@ After your pull request was accepted, you can preview your post on [preview.syst
 We'll review the formatting there and move it into the `master` branch.
 
 # Posting
-To submit a new post, please create a new file under [`/content/post/`](https://github.com/system32blog/blog/tree/preview/content/post) with a meaningful name like `20210821_grouppolicy.md`, please add the date in the format `YYYYMMDD` like on the example.
-
+To submit a new post, please create a new file under [`/content/post/`](https://github.com/system32blog/blog/tree/preview/content/post) with a meaningful name like `whataregrouppolicypreferences.md`.
 The post needs a set of metadata information, please follow this guidance.
 ## Syntax
 ```markdown
