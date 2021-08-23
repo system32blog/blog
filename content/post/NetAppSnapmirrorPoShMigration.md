@@ -1,6 +1,6 @@
 +++
 title = "PowerShell NetApp SnapMirror Destination Migration"
-date = "2021-08-22"
+date = "2021-08-23"
 description = "PowerShell based Migration of NetApp SnapMirror destination systems."
 featured = true
 tags = [
@@ -18,6 +18,7 @@ thumbnail = "post/NetAppSnapmirrorPoShMigration/NetAppLogo.png"
 This article shows how to use PowerShell and the NetApp PowerShell Module to migrate all NetApp SnapVault/SnapMirror relationships to a new system.
 The script also builds the SVM Relationships and does the cutovers of the relationships on the source ONTAP Systems. 
 <!--more-->
+````Disclaimer: This content and scripts are provided free of charge and I do not take any responsability for them nor any harm they may cause, it is up to you to review and test them properly before deploying them anywhere.````
 
 # Introduction
 If you ever had to migrate a SnapMirror Destination ONTAP System to a new one, you probably already faced the struggle to migrate Volume by Volume and SnapMirror by SnapMirror to keep all Snapshots.
