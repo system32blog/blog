@@ -8,6 +8,16 @@
   url = "post/howtopost/"
   weight = -107
 
+[[main]]
+  name = "Impress"
+  url = "impress/"
+  weight = -107
+
+[[main]]
+  name = "Data Privacy"
+  url = "https://www.privacypolicies.com/live/e4d14e7a-6ce3-4358-b0c1-afe6fe35f351"
+  weight = -107
+
 #[[main]]
 #  name = "About"
 #  url = "about/"
