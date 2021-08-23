@@ -26,6 +26,9 @@ If your change is ready in your opinion, please raise a pull request to the `pre
 
 `Scroll down further to see a video which describes the process.`
 
+## License
+Please note that all content you submit will fall under the [MIT License](https://github.com/system32blog/blog/blob/preview/LICENSE). We will remove blog posts based on the authors request, but the content will stay in the Git Revision history.
+
 # Preview posts
 After your pull request was accepted, you can preview your post on [preview.system32.blog](https://preview.system32.blog).
 We'll review the formatting there and move it into the `master` branch.
