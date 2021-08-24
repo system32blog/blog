@@ -5,7 +5,7 @@ baseurl = "https://dev.system32.blog/"
 paginate = 10
 
 # Theme
-theme = "hugo-clarity"
+theme = ["hugo-clarity", "system32-dev"]
 
 # Disqus Comments
 disqusShortname = "system32-blog-dev"
