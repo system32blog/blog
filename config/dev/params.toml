@@ -69,7 +69,7 @@ enable = false # to enable plausible analytics set to true.
 # scritpName = "plausible" # default is set to plausible, only required if using a custome name for script
 
 [matomo_analytics]
-enable = true # To enable matomo analytics change to `true`.
-websiteDomain = "dev.system32.blog" # Set the domain name of your website, in most cases same as your base URL this is required.
-matomoDomain = "matomo.system32.blog" # Set to Matomo domain
-mmatomoSiteID = "1" # Default is set to 1, change this to the siteid being tracked
+enable = false # To enable matomo analytics change to `true`.
+# websiteDomain = "example.com" # Set the domain name of your website, in most cases same as your base URL this is required.
+# matomoDomain = "matomo.example.com" # Set to Matomo domain
+# matomoSiteID = "1" # Default is set to 1, change this to the siteid being tracked
