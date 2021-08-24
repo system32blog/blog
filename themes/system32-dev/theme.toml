@@ -1,0 +1,11 @@
+name = "system32.blog components dev"
+license = "MIT"
+licenselink = "https://github.com/system32blog/blog/blob/preview/LICENSE"
+description = ""
+homepage = "https://system32.blog"
+tags = [""]
+min_version = "0.43"
+
+[author]
+  name = "Robin Beismann"
+  homepage = "https://robin-beismann.com"
