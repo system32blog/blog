@@ -25,6 +25,8 @@ One downside of this is the fact, that everytime you run this discovery, it adds
 
 To workaround this, I've build a PowerShell script that you can run as scheduled job to automatically discover any kind of discoverable sensor.
 
+The script is also able to send you a summary of what it discovered and created directly into your Teams Channel (via an Webhook Connector).
+
 # How does it work?
 The script uses PRTGs inbuilt API and the PowerShell Module "PrtgAPI" (https://github.com/lordmilko/PrtgAPI) to invoke a sensor discovery for a specific sensor on a device or a group of devices.
 After that it loops through the existing sensors to detect if there are any that are not explicitly excluded or already existent. 
