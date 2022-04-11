@@ -32,3 +32,4 @@ jobs:
         ) }}
       with:
         experimental_apply_changes_via_bot: 1
+        experimental_path: content\post
