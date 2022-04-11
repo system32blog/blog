@@ -17,7 +17,7 @@ matrix:
       context_visible_first: true
       #escapes: '\\[\\`~]'
       delimiters:
-      - open: '^\+{3}$'
+      - open: '(?s)^\+{3}$'
         close: '^\+{3}$'
   sources:
   - '**/*.md'
