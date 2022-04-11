@@ -15,7 +15,7 @@ matrix:
       - pre
   - pyspelling.filters.context:
       context_visible_first: true
-      escapes: '\\[\\`~]'
+      #escapes: '\\[\\`~]'
       delimiters:
       - open: '^\+{3}$'
         close: '^\+{3}$'	  
