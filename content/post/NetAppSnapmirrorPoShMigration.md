@@ -7,8 +7,8 @@ tags = [
     "Robin Beismann"
 ]
 categories = [
-    "NetApp"
-    "SnapMirror"
+    "NetApp",
+    "SnapMirror",
     "Migration"
 ]
 series = [""]
