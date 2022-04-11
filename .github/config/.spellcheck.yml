@@ -18,7 +18,7 @@ matrix:
       #escapes: '\\[\\`~]'
       delimiters:
       - open: '^\+{3}$'
-        close: '^\+{3}$'	  
+        close: '^\+{3}$'
   sources:
   - '**/*.md'
   default_encoding: utf-8
