@@ -16,4 +16,4 @@ ignore$
 \.wav$
 ^\.github/
 (?:^|/)(?i)LICEN[CS]E
-^(?!(content\\post\\.*\.md)).*$
+^(?:(?i)(?!(content\\post\\.*\.md)).*)$
