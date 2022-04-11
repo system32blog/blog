@@ -7,8 +7,8 @@ tags = [
     "Robin Beismann"
 ]
 categories = [
-    "PowerShell"
-    "PRTG"
+    "PowerShell",
+    "PRTG",
     "Discovery"
 ]
 series = [""]
