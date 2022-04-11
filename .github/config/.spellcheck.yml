@@ -21,8 +21,8 @@ matrix:
       # ```
       # content
       # ```
-      - open: '(?s)^\+\+\+$'
-        close: '^\+\+\+$'	  
+      - open: '^\+{3}$'
+        close: '^\+{3}$'	  
   sources:
   - '**/*.md'
   default_encoding: utf-8
