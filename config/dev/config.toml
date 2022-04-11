@@ -8,7 +8,7 @@ paginate = 10
 theme = ["hugo-clarity", "system32-dev"]
 
 # Disqus Comments
-disqusShortname = "system32-blog-dev"
+# disqusShortname = "system32-blog-dev"
 
 # Default Language
 DefaultContentLanguage = "en"
