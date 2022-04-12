@@ -21,7 +21,7 @@ The system32.blog is powered by a static site generator called Hugo and the [Cla
 All content is written in Markdown and hosted on Github which allows anyone to submit posts or collaborate on existing ones.
 
 # How to contribute?
-To contibute to the block, please fork the repository [system32blog/blog](https://github.com/system32blog/blog) and update or add a post under `/content/post`.
+To contribute to the block, please fork the repository [system32blog/blog](https://github.com/system32blog/blog) and update or add a post under `/content/post`.
 If your change is ready in your opinion, please raise a pull request to the `preview` branch on [system32blog/blog](https://github.com/system32blog/blog).
 
 `Scroll down further to see a video which describes the process.`
