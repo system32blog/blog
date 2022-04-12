@@ -24,7 +24,7 @@ All content is written in Markdown and hosted on Github which allows anyone to s
 To contribute to the block, please fork the repository [system32blog/blog](https://github.com/system32blog/blog) and update or add a post under `/content/post`.
 If your change is ready in your opinion, please raise a pull request to the `preview` branch on [system32blog/blog](https://github.com/system32blog/blog).
 
-After raising the pull request, a spellcheck action will check your spelling. If the action fails, please review it's output and correct if required. If there are words that need to be whitelisted, please add them to the `wordlist.txt` in the repository root and commit them. The pull request will check again.
+After raising the pull request, a spellcheck action will check your spelling. If the action fails, please review its' output and correct if required. If there are words that need to be whitelisted, please add them to the `wordlist.txt` in the repository root and commit them. The pull request will check again.
 
 `Scroll down further to see a video which describes the process.`
 
