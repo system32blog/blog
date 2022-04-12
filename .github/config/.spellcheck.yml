@@ -4,21 +4,32 @@ matrix:
     lang: en
   dictionary:
     encoding: utf-8
+    wordlists:
+    - wordlist.txt
   pipeline:
   - pyspelling.filters.context:
-      context_visible_first: false
-      #escapes: '\\[\\`~]'
+      context_visible_first: true
+      escapes: '\\[\\`~]'
       delimiters:
       - open: '(?s)^\+{3}$'
         close: '^\+{3}$'
+      - open: '(?s)^````\w*$'
+        close: '^````$'
   - pyspelling.filters.markdown:
       markdown_extensions:
-      - pymdownx.superfences:  
+      - pymdownx.superfences: 
+      - pymdownx.emoji:
+          emoji_generator: '!!python/name:pymdownx.emoji.to_svg'
+      - markdown.extensions.extra:
   - pyspelling.filters.html:
-      comments: false
-      ignores:
-      - code
-      - pre
+        comments: true
+        attributes:
+        - title
+        - alt
+        ignores:
+        - ':matches(code, pre)'
+        - 'code'
+        - 'pre'
   sources:
-  - '**/*.md'
+  - 'content/post/**/*.md'
   default_encoding: utf-8

@@ -20,5 +20,5 @@ jobs:
       name: Spellcheck
       with:
         config_path: .github/config/.spellcheck.yml
-        source_files: content/post/*.md
+        source_files: ./content/post/*.md
         task_name: Markdown
