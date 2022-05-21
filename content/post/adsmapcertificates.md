@@ -15,7 +15,7 @@ categories = [
 ]
 series = [""]
 aliases = [""]
-thumbnail = "post/ADCSMapCertificates/ad.png"
+thumbnail = "post/adsmapcertificates/ad.png"
 +++
 This article shows how to use PowerShell to address the issues that come with the new StrongCertificateBindingEnforcement security feature of Active Directory by mapping the existing/already enrolled certificates to their respective AD account (whether computer or user).
 <!--more-->
