@@ -96,4 +96,4 @@ To use the script, you will need to populate the following environment variables
 ````
 You will also need to install the `PSPKI` Module which is available [here](https://www.pkisolutions.com/tools/pspki/) or in the PS Gallery.
 
-You can find the script here: https://github.com/system32blog/blog/blob/master/static/post/ADCSMapCertificates/Invoke-ADCSCertMapping.ps1
+You can find the script here: https://github.com/system32blog/blog/blob/master/static/post/adsmapcertificates/Invoke-ADCSCertMapping.ps1
