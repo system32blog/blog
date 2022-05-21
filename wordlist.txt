@@ -164,3 +164,6 @@ NPS
 RRAS
 StrongCertificateBindingEnforcement
 patchday
+ADCSCertMapping
+contoso
+EmailAddress
