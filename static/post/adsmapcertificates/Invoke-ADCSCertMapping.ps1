@@ -140,7 +140,7 @@ foreach($cert in ($certs | Sort-Object -Property 'RequestID' -Descending)){
                 Write-Host("[$($cert.RequestID) - $CN] Adding X509: `"$X509IssuerSerialNumber`"")
                 $altIDs += $X509IssuerSerialNumber
 
-				if(!$Dry){
+				if(!$DryRun){
 					# Write out the AD Object
 					$ADObject | Set-ADObject -Replace @{
 						'altSecurityIdentities' = $altIDs
