@@ -71,12 +71,12 @@ The recommended way to map it is using the certificate serial number in conjunct
 
 |Mapping|Example|Type		|Remarks|
 |-----------|-----------|-----------|-----------|
-|X509IssuerSubject|"X509:<I>IssuerName<S>SubjectName"|Weak||
-|X509SubjectOnly|"X509:<S>SubjectName"|Weak|Text|
-|X509RFC822|"X509:<RFC822>user@contoso.com"|Weak|EmailAddress|
-|X509IssuerSerialNumber|"X509:<I>IssuerName<SR>1234567890"|Strong|Recommended|
-|X509SKI|"X509:<SKI>123456789abcdef"|Strong|Text|
-|X509SHA1PublicKey|"X509:<SHA1-PUKEY>123456789abcdef"|Strong||
+|X509IssuerSubject|"X509:\<I\>IssuerName\<S\>SubjectName"|Weak||
+|X509SubjectOnly|"X509:\<S\>SubjectName"|Weak|Text|
+|X509RFC822|"X509:\<RFC822\>user@contoso.com"|Weak|EmailAddress|
+|X509IssuerSerialNumber|"X509:\<I\>IssuerName\<SR\>1234567890"|Strong|Recommended|
+|X509SKI|"X509:\<SKI\>123456789abcdef"|Strong|Text|
+|X509SHA1PublicKey|"X509:\<SHA1-PUKEY\>123456789abcdef"|Strong||
 [Source - support.microsoft.com](https://support.microsoft.com/de-de/topic/kb5014754-certificate-based-authentication-changes-on-windows-domain-controllers-ad2c23b0-15d8-4340-a468-4d4f3b188f16#bkmk_certmap)
 
 For this approach, the binary order of the serial number needs to be added backwards and the CA Name needs to be read backwards as well. As quoted [here](https://support.microsoft.com/de-de/topic/kb5014754-certificate-based-authentication-changes-on-windows-domain-controllers-ad2c23b0-15d8-4340-a468-4d4f3b188f16#bkmk_certmap):
