@@ -126,7 +126,7 @@ foreach($cert in ($certs | Sort-Object -Property 'RequestID' -Descending)){
             $CertBackwardSN = (Reverse-CertificateSerialNumber -CertSerialNumber $CertForwardSN).ToUpper()
 
             # Build X509 Address
-            $X509IssuerSerialNumber = “X509:<I>$CACertSubject<SR>$CertBackwardSN”
+            $X509IssuerSerialNumber = "X509:<I>$CACertSubject<SR>$CertBackwardSN"
 
             # Check if the attribute is already set, otherwise initialize array
             if(!($altIDs = $ADObject.'altSecurityIdentities')){
