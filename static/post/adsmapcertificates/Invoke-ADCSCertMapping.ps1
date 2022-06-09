@@ -50,7 +50,6 @@ $CAs = @{}
 
 # Retrieve all Certificate Templates and their OIDs
 Write-Host("[$(Get-Date)] Retrieving Certificate templates..")
-$CertTemplate = Get-CertificateTemplate -Name $CertTemplateName
 $CertTemplateOIDs = $CertTemplates | ForEach-Object {
     (Get-CertificateTemplate -Name $_).oid.Value
 }
@@ -76,7 +75,7 @@ $Domains.$NETBIOS = @{
 }
 # Retrieve all certificates that match our template
 Write-Host("[$(Get-Date)] Retrieving Certificates..")
-$certs = Get-IssuedRequest -CertificationAuthority $CertAuthority | Where-Object { 
+$certs = Get-IssuedRequest -CertificationAuthority $CertAuthority -Filter "NotAfter -ge $(Get-Date)" | Where-Object { 
     $_.CertificateTemplate -in $CertTemplateOIDs
 }
 #endregion
