@@ -50,7 +50,6 @@ $CAs = @{}
 
 # Retrieve all Certificate Templates and their OIDs
 Write-Host("[$(Get-Date)] Retrieving Certificate templates..")
-$CertTemplate = Get-CertificateTemplate -Name $CertTemplateName
 $CertTemplateOIDs = $CertTemplates | ForEach-Object {
     (Get-CertificateTemplate -Name $_).oid.Value
 }
@@ -76,7 +75,7 @@ $Domains.$NETBIOS = @{
 }
 # Retrieve all certificates that match our template
 Write-Host("[$(Get-Date)] Retrieving Certificates..")
-$certs = Get-IssuedRequest -CertificationAuthority $CertAuthority | Where-Object { 
+$certs = Get-IssuedRequest -CertificationAuthority $CertAuthority -Filter "NotAfter -ge $(Get-Date)" | Where-Object { 
     $_.CertificateTemplate -in $CertTemplateOIDs
 }
 #endregion
@@ -126,7 +125,7 @@ foreach($cert in ($certs | Sort-Object -Property 'RequestID' -Descending)){
             $CertBackwardSN = (Reverse-CertificateSerialNumber -CertSerialNumber $CertForwardSN).ToUpper()
 
             # Build X509 Address
-            $X509IssuerSerialNumber = “X509:<I>$CACertSubject<SR>$CertBackwardSN”
+            $X509IssuerSerialNumber = "X509:<I>$CACertSubject<SR>$CertBackwardSN"
 
             # Check if the attribute is already set, otherwise initialize array
             if(!($altIDs = $ADObject.'altSecurityIdentities')){
@@ -140,7 +139,7 @@ foreach($cert in ($certs | Sort-Object -Property 'RequestID' -Descending)){
                 Write-Host("[$($cert.RequestID) - $CN] Adding X509: `"$X509IssuerSerialNumber`"")
                 $altIDs += $X509IssuerSerialNumber
 
-				if(!$Dry){
+				if(!$DryRun){
 					# Write out the AD Object
 					$ADObject | Set-ADObject -Replace @{
 						'altSecurityIdentities' = $altIDs
