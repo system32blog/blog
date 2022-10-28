@@ -2,6 +2,7 @@
 [string]$CertAuthority = "<pkiname>"
 [array]$CertTemplates = 'DeviceCert', 'UserCert'
 [bool]$DryRun = $true
+[bool]$AskForeignCredentials = $true # Enables asking for credentials for identities in foreign domains
 #endregion
 
 #region Modules
@@ -102,11 +103,11 @@ foreach($cert in ($certs | Sort-Object -Property 'RequestID' -Descending)){
             $UPNSuffix = $UPNSplit[-1]
             $CN = $UPNSplit[0..($UPNSplit.Count-2)] -join ""
         }else{
-            Write-Host("[$($cert.RequestID) - $($cert.CommonName)] `"$($cert.CommonName)`" does not have UPN as SAN, skipping..")
+            Write-Verbose("[$(Get-Date) - $($cert.RequestID) - $($cert.CommonName)] `"$($cert.CommonName)`" does not have UPN as SAN, skipping..")
             continue;
         }
     }catch{
-        Write-Host("[$($cert.RequestID) - $($cert.CommonName)] Can't extract UPN for `"$($cert.CommonName)`", Error: $_")
+        Write-Host("[$(Get-Date) - $($cert.RequestID) - $($cert.CommonName)] Can't extract UPN for `"$($cert.CommonName)`", Error: $_")
     }
     # Check if we found this domain
     if(
@@ -114,23 +115,29 @@ foreach($cert in ($certs | Sort-Object -Property 'RequestID' -Descending)){
         ($UPNSuffix) -and
         ($CN)
     ){
+        $Domain = $DomainEntry.Name
+
         # Build AD Cmdlet Splatting
         $ADCmdletSplat = @{
             Server = $DomainEntry.Value.DomainController
         }
 
-        # Check if this is the local domain, otherwise ask for credentials
-        if(
-            !($DomainEntry.Value.IsLocal) -and
-            !($DomainEntry.Value.Credentials)
-        ){
-            $Domains.$Domain.Credentials = Get-Credential -Message "Please enter Credentials for Domain `"$Domain`"."
-            $DomainEntry.Value.Credentials = $Domains.$Domain.Credentials
-        }
 
-        # Add the credential to the splatting if we have one
-        if(!($DomainEntry.Value.IsLocal)){
-            $ADCmdletSplat.Credential = $DomainEntry.Value.Credentials
+        if($AskForeignCredentials){
+            # Check if this is the local domain, otherwise ask for credentials
+            if(
+                !($DomainEntry.Value.IsLocal) -and
+                !($DomainEntry.Value.Credentials)
+            ){
+                Write-Verbose("[$(Get-Date) - $($cert.RequestID) - $($cert.CommonName)] Querying Credentials for `"$Domain`"..")
+                $Domains.$Domain.Credentials = Get-Credential -Message "Please enter Credentials for Domain `"$Domain`"."
+                $DomainEntry.Value.Credentials = $Domains.$Domain.Credentials
+            }
+
+            # Add the credential to the splatting if we have one
+            if(!($DomainEntry.Value.IsLocal)){
+                $ADCmdletSplat.Credential = $DomainEntry.Value.Credentials
+            }
         }
 
         # Retrieve AD Object
@@ -141,7 +148,7 @@ foreach($cert in ($certs | Sort-Object -Property 'RequestID' -Descending)){
             ) -or
             (
                 !($UPN.Contains("$@")) -and
-                ($ADObject = Get-ADObject -Filter { userPrincipalName -eq $CN } -Properties 'altSecurityIdentities' -ErrorAction SilentlyContinue @ADCmdletSplat)
+                ($ADObject = Get-ADObject -Filter { userPrincipalName -eq $UPN } -Properties 'altSecurityIdentities' -ErrorAction SilentlyContinue @ADCmdletSplat)
             )
         ){
             if(!($CAs.$($cert.ConfigString))){
@@ -167,7 +174,7 @@ foreach($cert in ($certs | Sort-Object -Property 'RequestID' -Descending)){
             if($X509IssuerSerialNumber -notin $altIDs){
 
                 # It is not, add it
-                Write-Host("[$($cert.RequestID) - $CN] Adding X509: `"$X509IssuerSerialNumber`"")
+                Write-Host("[$(Get-Date) - $($cert.RequestID) - $CN] Adding X509: `"$X509IssuerSerialNumber`"")
                 $altIDs += $X509IssuerSerialNumber
 
 				if(!$DryRun){
