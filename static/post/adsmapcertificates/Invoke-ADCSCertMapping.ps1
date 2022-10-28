@@ -61,18 +61,25 @@ $Domains = @{}
 Get-ADTrust -Filter * | ForEach-Object {
     [string]$DC = (Get-ADDomainController -Discover -DomainName $_.target).hostname
     $ADDomain = Get-ADDomain -Server $DC
-    $NETBIOS = $ADDomain.NetBIOSName
-    $Domains.$NETBIOS = @{
+    $ADForest = Get-ADForest -Server $DC
+    $DNSRoot = $ADDomain.DNSRoot.ToLower()
+    $Domains.$DNSRoot = @{
         DomainController = $DC
+        UPNSuffixes = $ADForst.UPNSuffixes
     }
+    $Domains.$DNSRoot.UPNSuffixes += $DNSRoot
 }
 [string]$DC = (Get-ADDomainController -Discover).hostname
 $ADDomain = Get-ADDomain -Server $DC
-$NETBIOS = $ADDomain.NetBIOSName
-$Domains.$NETBIOS = @{
+$DNSRoot = $ADDomain.DNSRoot.ToLower()
+$ADForest = Get-ADForest -Server $DC
+$Domains.$DNSRoot = @{
     DomainController = $DC
     IsLocal = $true
+    UPNSuffixes = $ADForst.UPNSuffixes
 }
+$Domains.$DNSRoot.UPNSuffixes += $DNSRoot
+
 # Retrieve all certificates that match our template
 Write-Host("[$(Get-Date)] Retrieving Certificates..")
 $certs = Get-IssuedRequest -CertificationAuthority $CertAuthority -Filter "NotAfter -ge $(Get-Date)" | Where-Object { 
@@ -83,14 +90,29 @@ $certs = Get-IssuedRequest -CertificationAuthority $CertAuthority -Filter "NotAf
 #region Map certificates
 Write-Host("[$(Get-Date)] Processing Certificates..")
 foreach($cert in ($certs | Sort-Object -Property 'RequestID' -Descending)){
-    $requester = $cert.'Request.RequesterName'
-    $requesterSplit = $requester.Split("\")
-    $CN = $requesterSplit[1]
-    $Domain = $requesterSplit[0]
-
+    try{
+        $ADCSRow = Get-AdcsDatabaseRow -RowID $cert.RowId -Table Extension -CertificationAuthority $CertAuthority -Filter "ExtensionName -eq 2.5.29.17"
+        $rawBytes = [convert]::frombase64string($ADCSRow.ExtensionRawValue)
+        $ASN = New-Object Security.Cryptography.asnencodeddata @(,$rawBytes)
+        $SAN = New-Object Security.Cryptography.x509certificates.x509subjectalternativenamesextension $ASN,0
+        $UPN = $SAN.AlternativeNames | Where-Object { $_.Type -eq 'UserPrincipalName' } | Select-Object -First 1 -ExpandProperty 'Value'
+        if($UPN){
+            $requester = $cert.'Request.RequesterName'
+            $UPNSplit = $UPN.Split("@")
+            $UPNSuffix = $UPNSplit[-1]
+            $CN = $UPNSplit[0..($UPNSplit.Count-2)] -join ""
+        }else{
+            Write-Host("[$($cert.RequestID) - $($cert.CommonName)] `"$($cert.CommonName)`" does not have UPN as SAN, skipping..")
+            continue;
+        }
+    }catch{
+        Write-Host("[$($cert.RequestID) - $($cert.CommonName)] Can't extract UPN for `"$($cert.CommonName)`", Error: $_")
+    }
     # Check if we found this domain
     if(
-        ($DomainEntry = $Domains.GetEnumerator() | Where-Object { $_.Name -eq $Domain })
+        ($DomainEntry = $Domains.GetEnumerator() | Where-Object { $UPNSuffix -in $_.Value.UPNSuffixes }) -and
+        ($UPNSuffix) -and
+        ($CN)
     ){
         # Build AD Cmdlet Splatting
         $ADCmdletSplat = @{
@@ -112,7 +134,16 @@ foreach($cert in ($certs | Sort-Object -Property 'RequestID' -Descending)){
         }
 
         # Retrieve AD Object
-        if($ADObject = Get-ADObject -Filter { sAMAccountName -eq $CN } -Properties 'altSecurityIdentities' -ErrorAction SilentlyContinue @ADCmdletSplat){
+        if(
+            (
+                $UPN.Contains("$@") -and
+                ($ADObject = Get-ADObject -Filter { sAMAccountName -eq $CN } -Properties 'altSecurityIdentities' -ErrorAction SilentlyContinue @ADCmdletSplat)
+            ) -or
+            (
+                !($UPN.Contains("$@")) -and
+                ($ADObject = Get-ADObject -Filter { userPrincipalName -eq $CN } -Properties 'altSecurityIdentities' -ErrorAction SilentlyContinue @ADCmdletSplat)
+            )
+        ){
             if(!($CAs.$($cert.ConfigString))){
                 $CAs.$($cert.ConfigString) = Get-CA -ErrorAction SilentlyContinue | Where-Object { $_.ConfigString -eq $cert.ConfigString } 
             }
