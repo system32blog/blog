@@ -156,7 +156,7 @@ foreach($cert in ($certs | Sort-Object -Property 'RequestID' -Descending)){
             }
             
             # Build CA Cert Subject
-            $CACertSubject = (Reverse-CertificateIssuer -CertIssuer $CAs.$($cert.ConfigString).Certificate.Subject).Replace(" ","")
+            $CACertSubject = (Reverse-CertificateIssuer -CertIssuer $CAs.$($cert.ConfigString).Certificate.Subject).Replace(", DC",",DC").Replace(", OU",",OU").Replace(", CN",",CN").Replace(", O",",O")
 
             # Build Serial Numbers
             $CertForwardSN = $cert.SerialNumber
