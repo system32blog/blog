@@ -66,7 +66,7 @@ Get-ADTrust -Filter * | ForEach-Object {
     $DNSRoot = $ADDomain.DNSRoot.ToLower()
     $Domains.$DNSRoot = @{
         DomainController = $DC
-        UPNSuffixes = $ADForst.UPNSuffixes
+        UPNSuffixes = $ADForest.UPNSuffixes
     }
     $Domains.$DNSRoot.UPNSuffixes += $DNSRoot
 }
@@ -77,7 +77,7 @@ $ADForest = Get-ADForest -Server $DC
 $Domains.$DNSRoot = @{
     DomainController = $DC
     IsLocal = $true
-    UPNSuffixes = $ADForst.UPNSuffixes
+    UPNSuffixes = $ADForest.UPNSuffixes
 }
 $Domains.$DNSRoot.UPNSuffixes += $DNSRoot
 
