@@ -66,7 +66,7 @@ Get-ADTrust -Filter * | ForEach-Object {
     $DNSRoot = $ADDomain.DNSRoot.ToLower()
     $Domains.$DNSRoot = @{
         DomainController = $DC
-        UPNSuffixes = $ADForst.UPNSuffixes
+        UPNSuffixes = $ADForest.UPNSuffixes
     }
     $Domains.$DNSRoot.UPNSuffixes += $DNSRoot
 }
@@ -77,7 +77,7 @@ $ADForest = Get-ADForest -Server $DC
 $Domains.$DNSRoot = @{
     DomainController = $DC
     IsLocal = $true
-    UPNSuffixes = $ADForst.UPNSuffixes
+    UPNSuffixes = $ADForest.UPNSuffixes
 }
 $Domains.$DNSRoot.UPNSuffixes += $DNSRoot
 
@@ -156,7 +156,7 @@ foreach($cert in ($certs | Sort-Object -Property 'RequestID' -Descending)){
             }
             
             # Build CA Cert Subject
-            $CACertSubject = (Reverse-CertificateIssuer -CertIssuer $CAs.$($cert.ConfigString).Certificate.Subject).Replace(" ","")
+            $CACertSubject = (Reverse-CertificateIssuer -CertIssuer $CAs.$($cert.ConfigString).Certificate.Subject).Replace(", DC",",DC").Replace(", OU",",OU").Replace(", CN",",CN").Replace(", O",",O")
 
             # Build Serial Numbers
             $CertForwardSN = $cert.SerialNumber
