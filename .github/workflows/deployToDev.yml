@@ -25,7 +25,7 @@ jobs:
         run: hugo --minify --environment dev
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         if: github.ref == 'refs/heads/dev'
         with:
           deploy_key: ${{ secrets.DEPLOYKEY_DEV }}
