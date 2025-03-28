@@ -95,7 +95,7 @@ foreach($cert in ($certs | Sort-Object -Property 'RequestID' -Descending)){
         $ADCSRow = Get-AdcsDatabaseRow -RowID $cert.RowId -Table Extension -CertificationAuthority $CertAuthority -Filter "ExtensionName -eq 2.5.29.17"
         $rawBytes = [convert]::frombase64string($ADCSRow.ExtensionRawValue)
         $ASN = New-Object Security.Cryptography.asnencodeddata @(,$rawBytes)
-        $SAN = New-Object Security.Cryptography.x509certificates.x509subjectalternativenamesextension $ASN,0
+        $SAN = New-Object SysadminsLV.PKI.Cryptography.X509Certificates.X509SubjectAlternativeNamesExtension $ASN,0
         $UPN = $SAN.AlternativeNames | Where-Object { $_.Type -eq 'UserPrincipalName' } | Select-Object -First 1 -ExpandProperty 'Value'
         if($UPN){
             $requester = $cert.'Request.RequesterName'
