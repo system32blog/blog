@@ -102,7 +102,7 @@ foreach($cert in ($certs | Sort-Object -Property 'RequestID' -Descending)){
         $rawBytes = [convert]::frombase64string($ADCSRow.ExtensionRawValue)
         $ASN = New-Object Security.Cryptography.asnencodeddata @(,$rawBytes)
         $SAN = New-Object SysadminsLV.PKI.Cryptography.X509Certificates.X509SubjectAlternativeNamesExtension $ASN,0
-        $UPN = $SAN.AlternativeNames | Where-Object { $_.Type -eq 'UserPrincipalName' } | Select-Object -First 1 -ExpandProperty 'Value'
+        $UPN = $SAN.AlternativeNames | Where-Object { $_.Type -in @( 'UserPrincipalName', 'Rfc822Name') } | Select-Object -First 1 -ExpandProperty 'Value'
         if($UPN){
             $requester = $cert.'Request.RequesterName'
             $UPNSplit = $UPN.Split("@")
