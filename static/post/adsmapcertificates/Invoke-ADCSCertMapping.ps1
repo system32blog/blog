@@ -1,5 +1,6 @@
 #region Static Definitions
-[string]$CertAuthority = "<pkiname>"
+[string]$CAHost = "<CA Host>"
+[string]$CAName = "<CA Name>"
 [array]$CertTemplates = 'DeviceCert', 'UserCert'
 [bool]$DryRun = $true
 [bool]$AskForeignCredentials = $true # Enables asking for credentials for identities in foreign domains
@@ -47,6 +48,9 @@ function Reverse-CertificateSerialNumber {
 #endregion
 
 #region Retrieve Data
+# Get the CA
+[Object]$CertAuthority = Get-CertificationAuthority -ErrorAction SilentlyContinue | Where-Object { $_.DisplayName.ToLower() -eq $CAName.ToLower() -and $_.ComputerName.ToLower() -eq $CAHost.ToLower() }
+
 $CAs = @{}
 
 # Retrieve all Certificate Templates and their OIDs
@@ -59,7 +63,9 @@ $CertTemplateOIDs = $CertTemplates | ForEach-Object {
 Write-Host("[$(Get-Date)] Retrieving all trusted domains..")
 $Domains = @{}
 
-Get-ADTrust -Filter * | ForEach-Object {
+Get-ADTrust -Filter * | Where-Object {
+    $_.Target -ne "KERBEROS.MICROSOFTONLINE.COM" # Ignore Cloud Kerberos Trust Endpoint
+} | ForEach-Object {
     [string]$DC = (Get-ADDomainController -Discover -DomainName $_.target).hostname
     $ADDomain = Get-ADDomain -Server $DC
     $ADForest = Get-ADForest -Server $DC
@@ -96,7 +102,7 @@ foreach($cert in ($certs | Sort-Object -Property 'RequestID' -Descending)){
         $rawBytes = [convert]::frombase64string($ADCSRow.ExtensionRawValue)
         $ASN = New-Object Security.Cryptography.asnencodeddata @(,$rawBytes)
         $SAN = New-Object SysadminsLV.PKI.Cryptography.X509Certificates.X509SubjectAlternativeNamesExtension $ASN,0
-        $UPN = $SAN.AlternativeNames | Where-Object { $_.Type -eq 'UserPrincipalName' } | Select-Object -First 1 -ExpandProperty 'Value'
+        $UPN = $SAN.AlternativeNames | Where-Object { $_.Type -in @( 'UserPrincipalName', 'Rfc822Name') } | Select-Object -First 1 -ExpandProperty 'Value'
         if($UPN){
             $requester = $cert.'Request.RequesterName'
             $UPNSplit = $UPN.Split("@")
