@@ -1,14 +1,14 @@
 # Base URL
 baseurl = "https://dev.system32.blog/"
 
-# Pagination
-paginate = 10
+[pagination]
+pagerSize = 10
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
 
 # Theme
-theme = ["hugo-clarity", "system32-dev"]
-
-# Disqus Comments
-# disqusShortname = "system32-blog-dev"
+theme = ["hugo-clarity", "system32-prod"]
 
 # Default Language
 DefaultContentLanguage = "en"

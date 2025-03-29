@@ -1,14 +1,14 @@
 # Base URL
 baseurl = "https://preview.system32.blog/"
 
-# Pagination
-paginate = 10
+[pagination]
+pagerSize = 10
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
 
 # Theme
-theme = ["hugo-clarity", "system32-preview"]
-
-# Disqus Comments
-# disqusShortname = "system32-blog-preview"
+theme = ["hugo-clarity", "system32-prod"]
 
 # Default Language
 DefaultContentLanguage = "en"
